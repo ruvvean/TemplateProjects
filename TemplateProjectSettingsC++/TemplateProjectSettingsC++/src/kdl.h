@@ -1,3 +1,12 @@
+/*
+	Kacper Domagala's basic library
+	Last edit 14/04/2022
+	Added output in timer
+
+	Templater settings:
+	Icon & preview image: https://www.pngwing.com/en/free-png-nwuho
+	Description: C++ project template with main function, kdl and pch.
+*/
 #pragma once
 #include "pch.h"
 
@@ -122,8 +131,11 @@ namespace kdl
 	private:
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_EndTimepoint;
+		std::string m_Output;
 	public:
 		Timer();
+		Timer(const char* output);
+		Timer(std::string& output);
 		~Timer();
 		void stop();
 		void start();
