@@ -120,10 +120,12 @@ kdl::Timer::Timer() :m_Output(std::string())
 
 kdl::Timer::Timer(const char* output) : m_Output(output)
 {
+	this->m_StartTimepoint = std::chrono::high_resolution_clock::now();
 }
 
 kdl::Timer::Timer(std::string& output) : m_Output(output)
 {
+	this->m_StartTimepoint = std::chrono::high_resolution_clock::now();
 }
 
 kdl::Timer::~Timer()

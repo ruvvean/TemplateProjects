@@ -101,7 +101,7 @@ namespace kdl
 		case OrderBy::DESC:
 			size_t _size = size - 1;
 			do {
-				std::cout << tab[i] << std::endl;
+				std::cout << tab[_size] << std::endl;
 				_size--;
 			} while (_size != 0);
 			break;
