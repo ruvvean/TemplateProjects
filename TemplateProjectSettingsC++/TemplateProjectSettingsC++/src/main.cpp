@@ -5,5 +5,6 @@
 
 int main()
 {
+	kdl::SetCursorPosition::set(2, 2);
 	std::cout << "Hello world!" << std::endl;
 }

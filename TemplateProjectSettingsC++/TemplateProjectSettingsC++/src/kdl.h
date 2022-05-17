@@ -136,8 +136,29 @@ namespace kdl
 		Timer();
 		Timer(const char* output);
 		Timer(std::string& output);
+		Timer(const Timer& t) = delete;
+		Timer(Timer& t) = delete;
+		Timer(Timer&& t) = delete;
 		~Timer();
 		void stop();
 		void start();
+	};
+
+	class SetCursorPosition
+	{
+	private:
+		HANDLE m_handle;
+		static SetCursorPosition s_instance;
+		SetCursorPosition();
+		void m_set(unsigned y);
+		void m_set(unsigned int x, unsigned int y);
+	public:
+		SetCursorPosition(const SetCursorPosition& c) = delete;
+		SetCursorPosition(const SetCursorPosition&& c) = delete;
+		SetCursorPosition(SetCursorPosition& c) = delete;
+		SetCursorPosition(SetCursorPosition&& c) = delete;
+		static SetCursorPosition& get();
+		static void set(unsigned int y);
+		static void set(unsigned int x, unsigned int y);
 	};
 }

@@ -1,6 +1,9 @@
 #include "kdl.h"
 #include "pch.h"
 
+
+using namespace kdl;
+
 bool kdl::saveToFile(const char* fileName, const std::string& data)
 {
 	std::fstream file;
@@ -148,4 +151,35 @@ void kdl::Timer::start()
 	this->m_StartTimepoint = std::chrono::high_resolution_clock::now();
 }
 
+kdl::SetCursorPosition::SetCursorPosition() :m_handle(GetStdHandle(STD_OUTPUT_HANDLE))
+{
+}
+
+kdl::SetCursorPosition& kdl::SetCursorPosition::get()
+{
+	static kdl::SetCursorPosition s_instance;
+	return s_instance;
+}
+
+void kdl::SetCursorPosition::set(unsigned int y)
+{
+	kdl::SetCursorPosition::get().m_set(y);
+}
+
+void kdl::SetCursorPosition::set(unsigned int x, unsigned int y)
+{
+	kdl::SetCursorPosition::get().m_set(x, y);
+}
+
+void kdl::SetCursorPosition::m_set(unsigned y)
+{
+	COORD coord{ 0,y };
+	SetConsoleCursorPosition(m_handle, coord);
+}
+
+void kdl::SetCursorPosition::m_set(unsigned int x, unsigned int y)
+{
+	COORD coord{ x,y };
+	SetConsoleCursorPosition(m_handle, coord);
+}
 
