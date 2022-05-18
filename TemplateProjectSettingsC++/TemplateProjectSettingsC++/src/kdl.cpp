@@ -140,6 +140,8 @@ void kdl::Timer::stop()
 {
 	this->m_EndTimepoint = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::time_point_cast<std::chrono::microseconds>(this->m_EndTimepoint).time_since_epoch().count() - std::chrono::time_point_cast<std::chrono::microseconds>(this->m_StartTimepoint).time_since_epoch().count();
+	std::cout.precision(5);
+	std::cout.setf(std::ios::fixed);
 	if (this->m_Output.empty())
 		std::cout << "Execution time: " << duration << " us" << "(" << duration * 0.001 << " ms)\n";
 	else

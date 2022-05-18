@@ -1,7 +1,7 @@
 /*
 	Kacper Domagala's basic library
-	Last edit 14/04/2022
-	Added output in timer
+	Last edit 18/05/2022
+	Update timer with setf(fixed)
 
 	Templater settings:
 	Icon & preview image: https://www.pngwing.com/en/free-png-nwuho
