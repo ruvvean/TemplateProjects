@@ -143,9 +143,9 @@ void kdl::Timer::stop()
 	std::cout.precision(5);
 	std::cout.setf(std::ios::fixed);
 	if (this->m_Output.empty())
-		std::cout << "Execution time: " << duration << " us" << "(" << duration * 0.001 << " ms)\n";
+		std::cout << "\nExecution time: " << duration << " us" << "(" << duration * 0.001 << " ms)\n";
 	else
-		std::cout << "Execution of " << this->m_Output << " time: " << duration << " us" << "(" << duration * 0.001 << " ms)\n";
+		std::cout << "\nExecution of " << this->m_Output << " time: " << duration << " us" << "(" << duration * 0.001 << " ms)\n";
 }
 
 void kdl::Timer::start()
@@ -163,23 +163,23 @@ kdl::SetCursorPosition& kdl::SetCursorPosition::get()
 	return s_instance;
 }
 
-void kdl::SetCursorPosition::set(unsigned int y)
+void kdl::SetCursorPosition::set(short y)
 {
 	kdl::SetCursorPosition::get().m_set(y);
 }
 
-void kdl::SetCursorPosition::set(unsigned int x, unsigned int y)
+void kdl::SetCursorPosition::set(short x, short y)
 {
 	kdl::SetCursorPosition::get().m_set(x, y);
 }
 
-void kdl::SetCursorPosition::m_set(unsigned y)
+void kdl::SetCursorPosition::m_set(short y)
 {
 	COORD coord{ 0,y };
 	SetConsoleCursorPosition(m_handle, coord);
 }
 
-void kdl::SetCursorPosition::m_set(unsigned int x, unsigned int y)
+void kdl::SetCursorPosition::m_set(short x, short y)
 {
 	COORD coord{ x,y };
 	SetConsoleCursorPosition(m_handle, coord);

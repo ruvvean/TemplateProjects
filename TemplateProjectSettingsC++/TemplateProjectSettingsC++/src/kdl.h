@@ -1,7 +1,7 @@
 /*
 	Kacper Domagala's basic library
-	Last edit 18/05/2022
-	Update timer with setf(fixed)
+	Last edit 21/05/2022
+	Changed from unsigned int to short in set cursor position and added new line in timer
 
 	Templater settings:
 	Icon & preview image: https://www.pngwing.com/en/free-png-nwuho
@@ -150,15 +150,15 @@ namespace kdl
 		HANDLE m_handle;
 		static SetCursorPosition s_instance;
 		SetCursorPosition();
-		void m_set(unsigned y);
-		void m_set(unsigned int x, unsigned int y);
+		void m_set(short y);
+		void m_set(short x, short y);
 	public:
 		SetCursorPosition(const SetCursorPosition& c) = delete;
 		SetCursorPosition(const SetCursorPosition&& c) = delete;
 		SetCursorPosition(SetCursorPosition& c) = delete;
 		SetCursorPosition(SetCursorPosition&& c) = delete;
 		static SetCursorPosition& get();
-		static void set(unsigned int y);
-		static void set(unsigned int x, unsigned int y);
+		static void set(short y);
+		static void set(short x, short y);
 	};
 }
