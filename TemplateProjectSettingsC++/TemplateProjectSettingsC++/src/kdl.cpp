@@ -27,7 +27,6 @@ bool kdl::loadFromFile(const char* fileName, std::string& data)
 {
 	std::fstream file;
 	file.open(fileName, std::ios::in);
-	bool first = false;
 	std::string tmp;
 	if (file.good())
 	{
@@ -51,71 +50,6 @@ bool kdl::loadFromFile(const std::string& fileName, std::string& data)
 	return loadFromFile(fileName.c_str(), data);
 }
 
-char kdl::generateNumber(char begin, char end)
-{
-	return begin + static_cast<char>(rand()) % (end - begin + 1);
-}
-
-short kdl::generateNumber(short begin, short end)
-{
-	return begin + static_cast<short>(rand()) % (end - begin + 1);
-}
-
-int kdl::generateNumber(int begin, int end)
-{
-	return begin + static_cast<int>(rand()) % (end - begin + 1);
-}
-
-long kdl::generateNumber(long begin, long end)
-{
-	return begin + static_cast<long>(rand()) % (end - begin + 1);
-}
-
-long long kdl::generateNumber(long long begin, long long end)
-{
-	return begin + static_cast<long long>(rand()) % (end - begin + 1);
-}
-
-unsigned char kdl::generateNumber(unsigned char begin, unsigned char end)
-{
-	return begin + static_cast<unsigned char>(rand()) % (end - begin + 1);
-}
-
-unsigned short kdl::generateNumber(unsigned short begin, unsigned short end)
-{
-	return begin + static_cast<unsigned short>(rand()) % (end - begin + 1);
-}
-
-unsigned int kdl::generateNumber(unsigned int begin, unsigned int end)
-{
-	return begin + static_cast<unsigned int>(rand()) % (end - begin + 1);
-}
-
-unsigned long kdl::generateNumber(unsigned long begin, unsigned long end)
-{
-	return begin + static_cast<unsigned long>(rand()) % (end - begin + 1);
-}
-
-unsigned long long kdl::generateNumber(unsigned long long begin, unsigned long long end)
-{
-	return begin + static_cast<unsigned long long>(rand()) % (end - begin + 1);
-}
-
-float kdl::generateNumber(float begin, float end)
-{
-	return begin + static_cast<float>(rand()) / RAND_MAX * (end - begin);
-}
-
-double kdl::generateNumber(double begin, double end)
-{
-	return begin + static_cast<double>(rand()) / RAND_MAX * (end - begin);
-}
-
-long double kdl::generateNumber(long double begin, long double end)
-{
-	return begin + static_cast<long double>(rand()) / RAND_MAX * (end - begin);
-}
-
 kdl::Timer::Timer() :m_Output(std::string())
 {
 	this->m_StartTimepoint = std::chrono::high_resolution_clock::now();
@@ -126,7 +60,7 @@ kdl::Timer::Timer(const char* output) : m_Output(output)
 	this->m_StartTimepoint = std::chrono::high_resolution_clock::now();
 }
 
-kdl::Timer::Timer(std::string& output) : m_Output(output)
+kdl::Timer::Timer(const std::string& output) : m_Output(output.c_str())
 {
 	this->m_StartTimepoint = std::chrono::high_resolution_clock::now();
 }
@@ -143,45 +77,12 @@ void kdl::Timer::stop()
 	std::cout.precision(5);
 	std::cout.setf(std::ios::fixed);
 	if (this->m_Output.empty())
-		std::cout << "\nExecution time: " << duration << " us" << "(" << duration * 0.001 << " ms)\n";
+		std::cout << "\nExecution time: " << duration << " us" << "(" << static_cast<long>(duration) * 0.001 << " ms)\n";
 	else
-		std::cout << "\nExecution of " << this->m_Output << " time: " << duration << " us" << "(" << duration * 0.001 << " ms)\n";
+		std::cout << "\nExecution of " << this->m_Output << " time: " << duration << " us" << "(" << static_cast<long>(duration) * 0.001 << " ms)\n";
 }
 
 void kdl::Timer::start()
 {
 	this->m_StartTimepoint = std::chrono::high_resolution_clock::now();
 }
-
-kdl::SetCursorPosition::SetCursorPosition() :m_handle(GetStdHandle(STD_OUTPUT_HANDLE))
-{
-}
-
-kdl::SetCursorPosition& kdl::SetCursorPosition::get()
-{
-	static kdl::SetCursorPosition s_instance;
-	return s_instance;
-}
-
-void kdl::SetCursorPosition::set(short y)
-{
-	kdl::SetCursorPosition::get().m_set(y);
-}
-
-void kdl::SetCursorPosition::set(short x, short y)
-{
-	kdl::SetCursorPosition::get().m_set(x, y);
-}
-
-void kdl::SetCursorPosition::m_set(short y)
-{
-	COORD coord{ 0,y };
-	SetConsoleCursorPosition(m_handle, coord);
-}
-
-void kdl::SetCursorPosition::m_set(short x, short y)
-{
-	COORD coord{ x,y };
-	SetConsoleCursorPosition(m_handle, coord);
-}
-

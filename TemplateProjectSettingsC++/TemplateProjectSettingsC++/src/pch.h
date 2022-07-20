@@ -10,6 +10,7 @@
 #include <cmath>
 #include <fstream>
 #include <chrono>
+#include <random>
 
 // Data structures
 #include <string>

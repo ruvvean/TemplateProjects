@@ -3,11 +3,14 @@
 	Last edit 21/05/2022
 	Changed from unsigned int to short in set cursor position and added new line in timer
 
-	Templater settings:
+	Template settings:
 	Icon & preview image: https://www.pngwing.com/en/free-png-nwuho
 	Description: C++ project template with main function, kdl and pch.
 */
 #pragma once
+#ifndef KDL_LIBRARY
+#define KDL_LIBRARY
+
 #include "pch.h"
 
 #define KDL_SRAND srand(static_cast<unsigned int>(time(nullptr)))
@@ -29,33 +32,23 @@ namespace kdl
 	//save data to file
 	bool loadFromFile(const std::string& fileName, std::string& data);
 
-	//generate random number of type based on type of parameters
-	char generateNumber(char begin, char end);
-	//generate random number of type based on type of parameters
-	short generateNumber(short begin, short end);
-	//generate random number of type based on type of parameters
-	int generateNumber(int begin, int end);
-	//generate random number of type based on type of parameters
-	long generateNumber(long begin, long end);
-	//generate random number of type based on type of parameters
-	long long generateNumber(long long begin, long long end);
-	//generate random number of type based on type of parameters
-	unsigned char generateNumber(unsigned char begin, unsigned char end);
-	//generate random number of type based on type of parameters
-	unsigned short generateNumber(unsigned short begin, unsigned short end);
-	//generate random number of type based on type of parameters
-	unsigned int generateNumber(unsigned int begin, unsigned int end);
-	//generate random number of type based on type of parameters
-	unsigned long generateNumber(unsigned long begin, unsigned long end);
-	//generate random number of type based on type of parameters
-	unsigned long long generateNumber(unsigned long long begin, unsigned long long end);
+	template<typename T, typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
+	T randomF(T min = 0, T max = UINT_MAX)
+	{
+		static std::random_device dev;
+		static std::mt19937 rng(dev());
+		std::uniform_int_distribution<std::mt19937::result_type> dist(min, max);
+		return dist(rng);
+	}
 
-	//generate random number of type based on type of parameters
-	float generateNumber(float begin, float end);
-	//generate random number of type based on type of parameters
-	double generateNumber(double begin, double end);
-	//generate random number of type based on type of parameters
-	long double generateNumber(long double begin, long double end);
+	template<typename T, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr>
+	T randomF(T min = .0, T max = std::numeric_limits<T>::max)
+	{
+		static std::random_device dev;
+		static std::mt19937 rng(dev());
+		std::uniform_real_distribution<T> dist(min, max);
+		return dist(rng);
+	}
 
 	//---------------------------------------------------------------
 
@@ -134,8 +127,8 @@ namespace kdl
 		std::string m_Output;
 	public:
 		Timer();
-		Timer(const char* output);
-		Timer(std::string& output);
+		explicit Timer(const char* output);
+		explicit Timer(const std::string& output);
 		Timer(const Timer& t) = delete;
 		Timer(Timer& t) = delete;
 		Timer(Timer&& t) = delete;
@@ -143,22 +136,6 @@ namespace kdl
 		void stop();
 		void start();
 	};
-
-	class SetCursorPosition
-	{
-	private:
-		HANDLE m_handle;
-		static SetCursorPosition s_instance;
-		SetCursorPosition();
-		void m_set(short y);
-		void m_set(short x, short y);
-	public:
-		SetCursorPosition(const SetCursorPosition& c) = delete;
-		SetCursorPosition(const SetCursorPosition&& c) = delete;
-		SetCursorPosition(SetCursorPosition& c) = delete;
-		SetCursorPosition(SetCursorPosition&& c) = delete;
-		static SetCursorPosition& get();
-		static void set(short y);
-		static void set(short x, short y);
-	};
 }
+
+#endif // KDL_LIBRARY
