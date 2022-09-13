@@ -1,7 +1,6 @@
 #include "kdl.h"
 #include "pch.h"
 
-
 using namespace kdl;
 
 bool kdl::saveToFile(const char* fileName, const std::string& data)
@@ -50,7 +49,7 @@ bool kdl::loadFromFile(const std::string& fileName, std::string& data)
 	return loadFromFile(fileName.c_str(), data);
 }
 
-kdl::Timer::Timer() :m_Output(std::string())
+kdl::Timer::Timer()
 {
 	this->m_StartTimepoint = std::chrono::high_resolution_clock::now();
 }

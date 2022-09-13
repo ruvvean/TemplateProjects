@@ -7,6 +7,7 @@
 	Icon & preview image: https://www.pngwing.com/en/free-png-nwuho
 	Description: C++ project template with main function, kdl and pch.
 */
+
 #pragma once
 #ifndef KDL_LIBRARY
 #define KDL_LIBRARY
@@ -33,7 +34,7 @@ namespace kdl
 	bool loadFromFile(const std::string& fileName, std::string& data);
 
 	template<typename T, typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
-	T randomF(T min = 0, T max = UINT_MAX)
+	T randomI(T min = 0, T max = UINT_MAX)
 	{
 		static std::random_device dev;
 		static std::mt19937 rng(dev());
