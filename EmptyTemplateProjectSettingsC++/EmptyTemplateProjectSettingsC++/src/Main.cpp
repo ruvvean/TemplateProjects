@@ -2,7 +2,7 @@
 Empty template with settings to C++.
 */
 
-#include "pch.h"
+#include <iostream>
 
 int main()
 {
